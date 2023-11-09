@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <style>
+      body, html {
+        height: 100%;
+        overflow: hidden;
+      }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css')}}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+<body>
+  <div class="bg-nav text-light d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+      <h5 class="my-0 mr-md-auto font-weight-normal">EntryFi : Student Safe Campus</h5>
+        <nav class="my-2 my-md-0 mr-md-3 text-light">
+<!--          <a class="p-2 text-light" style="font-size:20px" href="#" onclick="closeSections('profile-content')">Home</a>-->
+            <a class="p-2 text-light" style="font-size:20px ;border : 1px solid;margin : 5px 5px;" href="#" onclick="toggleProfile()">Profile</a>
+          <a class="p-2 text-light" style="font-size:20px;border : 1px solid;margin : 5px 5px;" href="#" onclick="closeSections('qr_code'); generatorQrcode('{{ user_profile.name }}', '{{ user_profile.rollno }}', '{{ user_profile.class }}', '{{ user_profile.email }}', '{{ user_profile.mobile }}')">Generate Code</a>
+        </nav>
+      <a class="btn btn-outline-primary" style="color:black ;margin : 10px 10px;" href="/login" onclick="logout()">Log Out</a>
+    </div>
+
+    <div id="profile-content" style="display: inline;">
+      <div class="page-content page-container" id="page-content">
+            <div class="padding">
+                <div class="row container d-flex justify-content-center text w-100 mw-100">
+                    <div class="col-xl-6 col-md-12">
+                        <div class="card user-card-full">
+                            <div class="row m-l-0 m-r-0">
+                                <div class="col-sm-4 bg-c-lite-green user-profile">
+                                    <div class="card-block text-center text-white">
+                                        <div class="m-b-25">
+                                            <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image">
+                                        </div>
+                                        <div style="width: 100%; text-align: center;">
+                                            <h6 class="f-w-600" style="word-wrap: break-word;">NAME :{{ user_profile.name }}</h6>
+                                            <p style="word-wrap: break-word;">CLASS : {{ user_profile.class }}</p>
+                                            <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="card-block">
+                                        <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                        <div class="row" style="display: flex;">
+                                            <div class="col-sm-8" style="flex: 1;">
+                                                <p class="m-b-10 f-w-600">Email</p>
+                                                <h6 class="text-muted f-w-400" style="word-wrap: break-word; max-width: 250px;">{{ user_profile.email }}</h6>
+                                            </div>
+                                            <div class="col-sm-8" style="flex: 1;">
+                                                <p class="m-b-10 f-w-600">Phone</p>
+                                                <h6 class="text-muted f-w-400">{{ user_profile.mobile }}</h6>
+                                            </div>
+                                        </div>
+                                        <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"></h6>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <p class="m-b-10 f-w-600">ROLL NO :</p>
+                                                <h6 class="text-muted f-w-400">{{ user_profile.rollno }}</h6>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+
+
+    <div  id="qr_code" style="display: none; max-width: 60%; max-height: 70%; margin: auto; border: 2px solid red; display: flex; flex-direction: column; align-items: center;">
+        <img   id="qrcode" alt="QR Code" style="width: 59%; height: 66%;">
+    </div>
+
+    <div id="attempts-section" style="display: none; max-width: 60%; max-height: 60%; margin: auto; border: 2px solid red; display: flex; flex-direction: column; align-items: center;">
+      <div id="timer" style="margin-top: 10px; margin-bottom: 10px; font-size: 16px; font-weight: bold;"></div>
+      <div style="margin-top: 10px; margin-bottom: 10px;">Attempts: <span id="attempts">0</span>/3</div>
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+      var generateAttempts = sessionStorage.getItem('generateAttempts') ? parseInt(sessionStorage.getItem('generateAttempts')) : 0;
+      var attemptElement = document.getElementById('attempts');
+      var attemptsSection = document.getElementById('attempts-section');
+      attemptsSection.style.display = 'none';
+      document.getElementById('qr_code').style.display = 'none';
+
+      function toggleProfile() {
+        var profileContent = document.getElementById('profile-content');
+        var qrCodeDiv = document.getElementById('qr_code');
+        if (profileContent.style.display === 'none') {
+          profileContent.style.display = 'block';
+          qrCodeDiv.style.display = 'none';
+          attemptsSection.style.display = 'none';
+        } else {
+          profileContent.style.display = 'none';
+        }
+      }
+
+      function closeSections(except) {
+        var profileContent = document.getElementById('profile-content');
+        var qrCodeDiv = document.getElementById('qr_code');
+        if (except !== 'profile-content') {
+          profileContent.style.display = 'none';
+        }
+        if (except !== 'qr_code') {
+          qrCodeDiv.style.display = 'none';
+          attemptsSection.style.display = 'none';
+        }
+      }
+
+      function generatorQrcode(name, rollno, Class, email, mobile) {
+          if (generateAttempts < 3) {
+              generateAttempts++;
+              sessionStorage.setItem('generateAttempts', generateAttempts);
+              attemptElement.textContent = generateAttempts;
+              attemptsSection.style.display = 'flex';
+              const data = `Name: ${name}, Roll No: ${rollno}, Class: ${Class}, Email: ${email}, Mobile: ${mobile}`;
+              fetch('http://127.0.0.1:5000/generate_qr_code', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ data: data })
+              })
+              .then(response => response.json())
+              .then(data => {
+                  document.getElementById('qrcode').src = data.qrcode;
+                  var qrCodeDiv = document.getElementById('qr_code');
+                  qrCodeDiv.style.display = 'flex';
+                  var timerDiv = document.getElementById('timer');
+                  var secondsLeft = 60;
+                  var countdown = setInterval(function() {
+                      secondsLeft--;
+                      timerDiv.textContent = 'Time left: ' + secondsLeft + 's';
+                      if (secondsLeft <= 0) {
+                          clearInterval(countdown);
+                          qrCodeDiv.style.display = 'none';
+                          attemptsSection.style.display = 'none';
+                      }
+                  }, 1000); // 1 second interval
+              })
+              .catch(error => console.error('Error:', error));
+          } else {
+              alert('Maximum attempts reached. Please log in again.');
+              // Redirect to login page
+              resetAttempts();
+              window.location.href = '/login'; // Replace with your login page URL
+          }
+      }
+
+      function logout() {
+        resetAttempts();
+        // Perform logout logic here
+        // Example: window.location.href = '/logout';
+      }
+
+      function resetAttempts() {
+        generateAttempts = 0;
+        sessionStorage.setItem('generateAttempts', generateAttempts);
+      }
+
+    </script>
+</body>
+</html>

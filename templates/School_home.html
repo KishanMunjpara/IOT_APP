@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <style>
+      body, html {
+        height: 100%;
+        overflow: hidden;
+      }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css')}}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+<body>
+  <div class="bg-nav text-light d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+      <h5 class="my-0 mr-md-auto font-weight-normal">EntryFi </h5>
+        <nav class="my-2 my-md-0 mr-md-3 text-light">
+            <a class="p-2 text-light" style="font-size:20px ;border : 1px solid;margin : 5px 5px;" href="#" onclick="toggleProfile()">Profile</a>
+            <a class="p-2 text-light" style="font-size:20px;border : 1px solid;margin : 5px 5px;" href="#" onclick="Scanner('{{ user_profile.name }}', '{{ user_profile.rollno }}', '{{ user_profile.class }}', '{{ user_profile.email }}', '{{ user_profile.mobile }}')">Generate Code</a>
+        </nav>
+      <a class="btn btn-outline-primary" style="color:black ;margin : 10px 10px;" href="/School_login" onclick="logout()">Log Out</a>
+    </div>
+
+    <div id="profile-content" style="display: inline;">
+      <!-- Existing profile content -->
+    </div>
+
+    <div id="qr_code" style="display: none; max-width: 60%; max-height: 70%; margin: auto; border: 2px solid red; display: flex; flex-direction: column; align-items: center;">
+        <video id="preview" style="width: 100%;"></video>
+    </div>
+
+    <div id="attempts-section" style="display: none; max-width: 60%; max-height: 60%; margin: auto; border: 2px solid red; display: flex; flex-direction: column; align-items: center;">
+      <div id="timer" style="margin-top: 10px; margin-bottom: 10px; font-size: 16px; font-weight: bold;"></div>
+      <div style="margin-top: 10px; margin-bottom: 10px;">Attempts: <span id="attempts">0</span>/3</div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script>
+      var generateAttempts = sessionStorage.getItem('generateAttempts') ? parseInt(sessionStorage.getItem('generateAttempts')) : 0;
+      var attemptElement = document.getElementById('attempts');
+      var attemptsSection = document.getElementById('attempts-section');
+      attemptsSection.style.display = 'none';
+      document.getElementById('qr_code').style.display = 'none';
+
+      function toggleProfile() {
+        var profileContent = document.getElementById('profile-content');
+        var qrCodeDiv = document.getElementById('qr_code');
+        if (profileContent.style.display === 'none') {
+          profileContent.style.display = 'block';
+          qrCodeDiv.style.display = 'none';
+          attemptsSection.style.display = 'none';
+        } else {
+          profileContent.style.display = 'none';
+        }
+      }
+
+      function closeSections(except) {
+        var profileContent = document.getElementById('profile-content');
+        var qrCodeDiv = document.getElementById('qr_code');
+        if (except !== 'profile-content') {
+          profileContent.style.display = 'none';
+        }
+        if (except !== 'qr_code') {
+          qrCodeDiv.style.display = 'none';
+          attemptsSection.style.display = 'none';
+        }
+      }
+
+      function Scanner(name, rollno, Class, email, mobile) {
+        var qrCodeDiv = document.getElementById('qr_code');
+        qrCodeDiv.style.display = 'flex';
+        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+        scanner.addListener('scan', function (content) {
+            // Perform any action with the scanned content here
+            alert('Scanned content: ' + content);
+        });
+        Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+            } else {
+                console.error('No cameras found.');
+            }
+        }).catch(function (e) {
+            console.error(e);
+        });
+    }
+
+      function logout() {
+        resetAttempts();
+        // Perform logout logic here
+        // Example: window.location.href = '/School_logout';
+      }
+
+      function resetAttempts() {
+        generateAttempts = 0;
+        sessionStorage.setItem('generateAttempts', generateAttempts);
+      }
+
+    </script>
+</body>
+</html>
