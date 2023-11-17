@@ -1,7 +1,7 @@
 # IOT_APP
 
 ## Choose Your Path: You are School Or Parent
-![Choose Your Path](https://github.com/KishanMunjpara/IOT_APP/raw/main/IOT_Pictures/Picture1.png)
+![Choose Your Path](/../main/IOT_Pictures/Picture1.png)
 
 ## Login Page
 ![Login Page](direct_link_to_image)
