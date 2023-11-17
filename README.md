@@ -1,7 +1,7 @@
 # IOT_APP
 
 ## Choose Your Path: You are School Or Parent
-![Choose Your Path](https://drive.google.com/file/d/1bRc_oiSbxGbBVL26MPdIKgONuyRwoD5u/view)
+![Choose Your Path](IOT_Pictures/Picture1.png)
 
 ## Login Page
 ![Login Page](direct_link_to_image)
