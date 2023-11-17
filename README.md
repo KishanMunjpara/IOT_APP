@@ -8,7 +8,7 @@
 ## Profile Page
 ![Optional Title](https://drive.google.com/file/d/1Q13lj38XieARosEkZZXQFMF8o4KyiVbK/view?usp=sharing)
 
-## Parent has Two Ways to PickUp their child
+# Parent has Two Ways to PickUp their child
 
 ## First : By Generate QR Code .
 ![Optional Title](https://drive.google.com/file/d/1ZUbrxmO_VTwD1tJAwPMHQC96bU_6otZH/view?usp=sharing)
