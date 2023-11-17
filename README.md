@@ -1,6 +1,6 @@
 # IOT_APP
 ## Choose Your Path : You are School Or Parent
-![Optional Title](https://drive.google.com/file/d/1bRc_oiSbxGbBVL26MPdIKgONuyRwoD5u/view?usp=sharing)
+![Optional Title](https://drive.google.com/file/d/1bRc_oiSbxGbBVL26MPdIKgONuyRwoD5u/view?usp=drive_link)
 ## Login Page
 ![Optional Title](https://drive.google.com/file/d/11WX60HLhDqs5S3QHALcwPJpdr5EoQT7x/view?usp=sharing)
 ## Register Page
