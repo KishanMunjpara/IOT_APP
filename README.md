@@ -12,7 +12,7 @@
 ## Profile Page
 ![Profile Page](https://drive.google.com/uc?id=1Q13lj38XieARosEkZZXQFMF8o4KyiVbK)
 
-# Parent has Two Ways to Pick Up their child
+### Parent has Two Ways to Pick Up their child
 
 ## First: By Generate QR Code
 ![Generate QR Code](https://drive.google.com/uc?id=1Q13lj38XieARosEkZZXQFMF8o4KyiVbK)
