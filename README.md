@@ -14,10 +14,10 @@
 
 ### Parent has Two Ways to Pick Up their child
 
-## First: By Generate QR Code
+**First: By Generate QR Code
 ![Generate QR Code](https://drive.google.com/uc?id=1Q13lj38XieARosEkZZXQFMF8o4KyiVbK)
 
--- **School Side scanner for scan Qr Code.
+**School Side scanner for scan Qr Code.
 ![School Side Scanner](https://drive.google.com/uc?id=1UqI2YDb6OxaMTi1NEtiYLbID7VYEfsh8)
 
 ## Second: If you do not have a device then You need to Enter your Id-Password at the school side
